@@ -1,0 +1,23 @@
+name: Check Tree Structure
+on:
+  pull_request:
+    branches: [ "master", "main" ]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Vérifier l'arborescence
+        run: |
+          test -d site/img && test -d site/css && test -d site/js && test -d src
+      - name: Vérifier les extensions
+        run: |
+          # site (.html ou .php)
+          find site -maxdepth 1 -type f ! -name "*.html" ! -name "*.php" | grep . && exit 1 || echo "Site OK"
+          # img (.png ou .jpg)
+          find site/img -type f ! -name "*.png" ! -name "*.jpg" | grep . && exit 1 || echo "Img OK"
+          # css (.css)
+          find site/css -type f ! -name "*.css" | grep . && exit 1 || echo "CSS OK"
+          # js (.js)
+          find site/js -type f ! -name "*.js" | grep . && exit 1 || echo "JS OK"
