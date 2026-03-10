@@ -1,25 +1,14 @@
 name: Action Mes Dates
-on: 
-  push:
-    branches: [ "mes-dates" ]
-  pull_request:
-    branches: [ "master" ]
+on: [push, pull_request]
 
 jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - name: 1. Affichage des fichiers (ls)
-        run: ls -R
+      - uses: actions/checkout@v4
 
-      - name: 2. Récupération du code (checkout)
-        uses: actions/checkout@v4
+      - name: 1. Installation de Composer
+        run: composer install
 
-      - name: 3. Installation PHP et PHPCS
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.2'
-          tools: phpcs
-
-      - name: 4. Vérification PHPCS (Norme de base)
-        run: phpcs src/MesDates.php
+      - name: 2. Vérification PHPCS (via Composer)
+        run: ./vendor/bin/phpcs src/MesDates.php
