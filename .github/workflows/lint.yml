@@ -11,5 +11,8 @@ jobs:
       - name: 2. RÉCUPÉRATION DU CODE (Checkout)
         uses: actions/checkout@v4
 
-      - name: 3. APRÈS CHECKOUT (Dossier rempli)
-        run: ls -R
+      - name: 3. Installation de Composer
+        run: composer install
+
+      - name: 4. Vérification PHPCS (via Composer)
+        run: ./vendor/bin/phpcs src/MesDates.php
