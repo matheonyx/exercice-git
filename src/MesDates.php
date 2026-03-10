@@ -6,10 +6,10 @@
  * PHP version 7.4
  *
  * @category Library
- * @package  UPJV
- * @author   Mathe <mathe@etudiant.upjv.fr>
- * @license  http://opensource.org/licenses/gpl-license.php GNU
- * @link     http://localhost
+ * @package   UPJV
+ * @author    Mathe <mathe@etudiant.upjv.fr>
+ * @license   http://opensource.org/licenses/gpl-license.php GNU
+ * @link      http://localhost
  */
 
 namespace UPJV;
@@ -20,10 +20,10 @@ use DateTime;
  * Classe MesDates
  *
  * @category Library
- * @package  UPJV
- * @author   Mathe <mathe@etudiant.upjv.fr>
- * @license  http://opensource.org/licenses/gpl-license.php GNU
- * @link     http://localhost
+ * @package   UPJV
+ * @author    Mathe <mathe@etudiant.upjv.fr>
+ * @license   http://opensource.org/licenses/gpl-license.php GNU
+ * @link      http://localhost
  */
 class MesDates
 {
