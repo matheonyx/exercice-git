@@ -1,0 +1,12 @@
+name: TP6 Verification Arborescence
+on: [push, pull_request]
+
+jobs:
+  check-folders:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 1. Récupération du code
+        uses: actions/checkout@v4
+
+      - name: 2. Exécution du script de vérification PHP
+        run: php .github/scripts/verif.arbo.php
