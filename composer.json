@@ -1,0 +1,12 @@
+{
+    "name": "mathe/exercice-git",
+    "description": "Exercice UPJV avec PHPCS et GitHub Actions",
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.11"
+    },
+    "autoload": {
+        "psr-4": {
+            "UPJV\\": "src/"
+        }
+    }
+}
