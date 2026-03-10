@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercice </title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        #dropzone {
+            width: 300px; min-height: 150px; padding: 20px;
+            border: 4px dashed #ccc; border-radius: 10px;
+            text-align: center; color: #777; font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        #dropzone.dragover { border-color: #007bff; background-color: #f4f8ff; }
+        #fileButton {
+            margin-top: 15px; padding: 10px 15px;
+            background-color: #007bff; color: white;
+            border: none; border-radius: 5px; cursor: pointer;
+        }
+        #fileInput { display: none; }
+        #fileList { list-style: none; padding-left: 0; }
+        #fileList li { padding: 5px; background: #f9f9f9; border-bottom: 1px solid #eee; }
+        #responseArea { margin-top: 20px; padding: 10px; background: #eee; border-radius: 5px; }
+    </style>
+</head>
+<body>
+
+    <h1></h1>
+    <p>Glissez et déposez des fichiers ou utilisez le bouton.</p>
+
+    <input type="file" id="fileInput" multiple>
+
+    <div id="dropzone" class="dropzone">
+        Glissez vos fichiers ici
+        <br>
+        <button id="fileButton">Choisir des fichiers</button>
+    </div>
+
+    <h3>Fichiers en attente d'envoi :</h3>
+    <ul id="fileList"></ul>
+
+    <h3>Réponse du serveur :</h3>
+    <pre id="responseArea"></pre>
+
+    <script>
+        const dropzone = document.getElementById('dropzone');
+        const fileInput = document.getElementById('fileInput');
+        const fileButton = document.getElementById('fileButton');
+        const fileListUI = document.getElementById('fileList');
+        const responseArea = document.getElementById('responseArea');
+
+        let allFiles = []; 
+
+        fileButton.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
+
+        document.addEventListener('dragover', (e) => e.preventDefault());
+        document.addEventListener('drop', (e) => e.preventDefault());
+        dropzone.addEventListener('dragenter', () => dropzone.classList.add('dragover'));
+        dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+        
+        dropzone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropzone.classList.remove('dragover');
+            handleFiles(e.dataTransfer.files);
+        });
+
+        function handleFiles(files) {
+            for (const file of files) {
+                allFiles.push(file);
+            }
+            updateFileListUI();
+            uploadAllFiles();
+        }
+
+        function updateFileListUI() {
+            fileListUI.innerHTML = ""; 
+            for (const file of allFiles) {
+                const li = document.createElement('li');
+                li.textContent = `${file.name} (${(file.size / 1024).toFixed(1)} Ko)`;
+                fileListUI.appendChild(li);
+            }
+        }
+
+        function uploadAllFiles() {
+            if (allFiles.length === 0) return;
+
+            responseArea.textContent = "Envoi en cours...";
+            
+            const formData = new FormData();
+            for (const file of allFiles) {
+                formData.append('mesFichiers[]', file); 
+            }
+            
+            const UPLOAD_URL = 'post.php'; 
+
+            fetch(UPLOAD_URL, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Succès !', data);
+                responseArea.textContent = JSON.stringify(data, null, 2);
+                allFiles = []; 
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+                responseArea.textContent = "Erreur fatale lors de l'envoi. \n" + error;
+            });
+        }
+    </script>
+
+</body>
+</html>

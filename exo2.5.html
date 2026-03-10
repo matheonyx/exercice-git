@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Exo 2.5 - Chronomètre (sans session)</title>
+</head>
+<body>
+
+    <h1>Chronomètre côté Serveur (via Fichier)</h1>
+
+    <button id="startBtn">Démarrer</button>
+    <button id="stopBtn">Arrêter</button>
+
+    <div style="margin-top: 20px; font-size: 28px;">
+        Temps écoulé : <span id="chronoDisplay">0</span> seconde(s)
+    </div>
+
+    <script>
+        const startButton = document.getElementById('startBtn');
+        const stopButton = document.getElementById('stopBtn');
+        const display = document.getElementById('chronoDisplay');
+
+        let intervalID = null;
+
+        
+        startButton.addEventListener('click', function() {
+            const startXhr = new XMLHttpRequest();
+            startXhr.open('GET', 'start_chrono.php', true);
+            startXhr.send();
+            
+            clearInterval(intervalID);
+            intervalID = setInterval(updateChrono, 1000);
+        });
+
+        
+        stopButton.addEventListener('click', function() {
+            clearInterval(intervalID);
+        });
+
+        
+        function updateChrono() {
+            const updateXhr = new XMLHttpRequest();
+            updateXhr.open('GET', 'update-chrono.php', true);
+
+            updateXhr.onreadystatechange = function() {
+                if (this.readyState === 4 && this.status === 200) {
+                    display.innerText = this.responseText;
+                }
+            };
+            
+            updateXhr.send();
+        }
+    </script>
+
+</body>
+</html>
