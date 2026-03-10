@@ -1,5 +1,4 @@
 <?php
-
 $dossiers = ['site/img', 'site/css', 'site/js', 'src'];
 $erreurs = 0;
 
@@ -13,8 +12,6 @@ foreach ($dossiers as $dossier) {
 }
 
 if ($erreurs > 0) {
-    exit(1); // Dit à GitHub que le test a échoué
+    exit(1);
 }
-
-echo "Structure parfaite !";
 exit(0);
