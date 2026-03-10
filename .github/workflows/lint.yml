@@ -7,3 +7,21 @@ jobs:
     steps:
       - name: 1. Affichage des fichiers (ls)
         run: ls -R
+        name: Action Mes Dates
+on: [push, pull_request]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 1. Affichage des fichiers (ls)
+        run: ls -R
+
+      - name: 2. Récupération du code (checkout)
+        uses: actions/checkout@v4
+
+      - name: 3. Installation de Composer
+        run: composer install
+
+      - name: 4. Vérification PHPCS (via Composer)
+        run: ./vendor/bin/phpcs src/MesDates.php
