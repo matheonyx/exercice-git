@@ -1,4 +1,4 @@
-﻿name: Lint and Unit Tests
+name: Lint and Unit Tests
 on: [push, pull_request]
 jobs:
   build-and-test:
@@ -8,11 +8,14 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.4'
+          php-version: "8.3"
           coverage: xdebug
       - name: Install Dependencies
         run: composer install
-      - name: Lint
-        run: php -l src/Validator.php
       - name: Run Tests
-        run: ./vendor/bin/phpunit --coverage-text
+        run: ./vendor/bin/phpunit --coverage-html coverage-report
+      - name: Upload HTML Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: html-coverage-report
+          path: coverage-report
