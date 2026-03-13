@@ -1,49 +1,18 @@
-<<<<<<< HEAD
 ﻿name: Lint and Unit Tests
-
 on: [push, pull_request]
-
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
+      - uses: actions/checkout@v3
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.4'
-          coverage: xdebug # Ceci active le reporting sur GitHub !
-
+          coverage: xdebug
       - name: Install Dependencies
-        run: composer install --prefer-dist --no-progress
-
-      # PARTIE 1 : Le "Lint" (Vérification de la syntaxe)
-      - name: Lint src files
-        run: php -l src/Validator.php
-
-      # PARTIE 2 : Les "Tests" + Reporting
-      - name: Run PHPUnit tests
-        run: ./vendor/bin/phpunit --coverage-text
-=======
-name: Action Mes Dates
-on: [push, pull_request]
-
-jobs:
-  check:
-    runs-on: ubuntu-latest
-    steps:
-      - name: 1. Affichage des fichiers (ls)
-        run: ls -R
-
-      - name: 2. Récupération du code (checkout)
-        uses: actions/checkout@v4
-
-      - name: 3. Installation de Composer
         run: composer install
-
-      - name: 4. Vérification PHPCS (via Composer)
-        run: ./vendor/bin/phpcs src/MesDates.php
->>>>>>> 237b1e061942a387981c1bdedb8790740dd3a7d6
+      - name: Lint
+        run: php -l src/Validator.php
+      - name: Run Tests
+        run: ./vendor/bin/phpunit --coverage-text
