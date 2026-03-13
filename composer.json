@@ -1,4 +1,4 @@
-﻿{
+{
     "name": "tp/phpunit",
     "autoload": {
         "psr-4": {
