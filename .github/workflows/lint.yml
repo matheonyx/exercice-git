@@ -5,10 +5,10 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - name: 1. Affichage des fichiers (ls)
+      - name: 1. AVANT CHECKOUT (Dossier vide)
         run: ls -R
 
-      - name: 2. Récupération du code (checkout)
+      - name: 2. RÉCUPÉRATION DU CODE (Checkout)
         uses: actions/checkout@v4
 
       - name: 3. Installation de Composer
