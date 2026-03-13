@@ -13,9 +13,9 @@ jobs:
       - name: Install Dependencies
         run: composer install
       - name: Run Tests
-        run: ./vendor/bin/phpunit --coverage-html coverage-report
+        run: ./vendor/bin/phpunit --coverage-html coverage-github
       - name: Upload HTML Report
         uses: actions/upload-artifact@v4
         with:
-          name: html-coverage-report
-          path: coverage-report
+          name: rapport-couverture-tp
+          path: coverage-github
