@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Exo 3.2 - Gestion du Drag & Drop</title>
+    <style>
+        #dropzone {
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+            border: 5px dotted gray;
+            text-align: center; /* Utile pour centrer du texte si on en ajoute plus tard */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Ma zone de dépôt de fichiers</h1>
+
+    <div id="dropzone" class="dropzone"></div>
+
+    <script>
+        // Événement déclenché quand un élément est glissé AU-DESSUS de la zone
+        document.addEventListener("dragover", function(event) {
+            // On empêche le comportement par défaut
+            event.preventDefault();
+        }, false);
+
+        // Événement déclenché quand un élément est LÂCHÉ dans la zone
+        document.addEventListener("drop", function(event) {
+            // On empêche le comportement par défaut (ouvrir le fichier)
+            event.preventDefault();
+
+            // On vérifie si la cible du "drop" a bien la classe "dropzone"
+            if (event.target.className == "dropzone") {
+                alert('Upload en cours');
+            }
+        }, false);
+    </script>
+
+</body>
+</html>

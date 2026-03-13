@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Exo 3.3 - Lister les fichiers</title>
+    <style>
+        #dropzone {
+            width: 250px;
+            min-height: 100px;
+            padding: 10px;
+            margin: 10px;
+            border: 5px dotted gray;
+            text-align: left;
+            font-family: sans-serif;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Ma zone de dépôt de fichiers</h1>
+    <p>Glissez et déposez des fichiers dans la zone ci-dessous :</p>
+
+    <div id="dropzone" class="dropzone"></div>
+
+    <script>
+        const dropzone = document.getElementById('dropzone');
+
+        document.addEventListener("dragover", function(event) {
+            event.preventDefault();
+        }, false);
+
+        document.addEventListener("drop", function(event) {
+            event.preventDefault();
+
+            if (event.target.className == "dropzone") {
+                const files = event.dataTransfer.files;
+                let fileListHTML = "<ul>";
+                
+                for (const file of files) {
+                    fileListHTML += `<li>${file.name}</li>`;
+                }
+                
+                fileListHTML += "</ul>";
+
+                dropzone.innerHTML = fileListHTML;
+            }
+        }, false);
+    </script>
+
+</body>
+</html>

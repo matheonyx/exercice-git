@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿name: Lint and Unit Tests
 
 on: [push, pull_request]
@@ -26,3 +27,23 @@ jobs:
       # PARTIE 2 : Les "Tests" + Reporting
       - name: Run PHPUnit tests
         run: ./vendor/bin/phpunit --coverage-text
+=======
+name: Action Mes Dates
+on: [push, pull_request]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 1. Affichage des fichiers (ls)
+        run: ls -R
+
+      - name: 2. Récupération du code (checkout)
+        uses: actions/checkout@v4
+
+      - name: 3. Installation de Composer
+        run: composer install
+
+      - name: 4. Vérification PHPCS (via Composer)
+        run: ./vendor/bin/phpcs src/MesDates.php
+>>>>>>> 237b1e061942a387981c1bdedb8790740dd3a7d6

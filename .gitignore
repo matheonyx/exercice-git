@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 ﻿vendor/
 .phpunit.result.cache
+=======
+/vendor/
+*.phar
+>>>>>>> 237b1e061942a387981c1bdedb8790740dd3a7d6

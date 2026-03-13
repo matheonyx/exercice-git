@@ -1,0 +1,18 @@
+name: TP6 Verification Complete
+on: [push, pull_request]
+
+jobs:
+  verification:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 1. Récupération du code (checkout)
+        uses: actions/checkout@v4
+
+      - name: 2. Installation des dépendances (Composer)
+        run: composer install
+
+      - name: 3. Vérification de l'arborescence (Script PHP)
+        run: php .github/scripts/verif.arbo.php
+
+      - name: 4. Vérification du style de code (Lint PHPCS)
+        run: ./vendor/bin/phpcs src/MesDates.php

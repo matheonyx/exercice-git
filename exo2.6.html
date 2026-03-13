@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Exo 2.6 - Chronomètre en JSON (FR)</title>
+</head>
+<body>
+
+    <h1>Chronomètre côté Serveur (avec JSON)</h1>
+
+    <button id="boutonDemarrer">Démarrer</button>
+    <button id="boutonArreter">Arrêter</button>
+
+    <div id="affichageChrono" style="margin-top: 20px; font-size: 24px; font-family: monospace;">
+        </div>
+
+    <script>
+        const boutonDemarrer = document.getElementById('boutonDemarrer');
+        const boutonArreter = document.getElementById('boutonArreter');
+        const affichage = document.getElementById('affichageChrono');
+
+        let idIntervalle = null; 
+
+        boutonDemarrer.addEventListener('click', function() {
+            
+            const requeteDemarrage = new XMLHttpRequest();
+            requeteDemarrage.open('GET', 'start_chrono.php', true);
+            requeteDemarrage.send();
+            
+            
+            clearInterval(idIntervalle);
+            mettreAJourChrono(); 
+            idIntervalle = setInterval(mettreAJourChrono, 1000);
+        });
+
+        boutonArreter.addEventListener('click', function() {
+            
+            clearInterval(idIntervalle);
+        });
+
+        
+        function mettreAJourChrono() {
+            const requeteMiseAJour = new XMLHttpRequest();
+            requeteMiseAJour.open('GET', 'update_chrono2.php', true);
+
+            requeteMiseAJour.onreadystatechange = function() {
+                
+                if (this.readyState === 4 && this.status === 200) {
+                    
+                    
+                    const donnees = JSON.parse(this.responseText);
+                    
+                    
+                    const heureDepart = donnees.heure;
+                    const tempsEcoule = donnees.chrono;
+
+                    
+                    affichage.innerHTML = `Démarré à : <strong>${heureDepart}</strong> | Temps écoulé : <strong>${tempsEcoule}</strong> seconde(s)`;
+                }
+            };
+            
+            requeteMiseAJour.send();
+        }
+    </script>
+
+</body>
+</html>
