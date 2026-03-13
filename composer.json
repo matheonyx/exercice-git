@@ -1,0 +1,11 @@
+{
+    "name": "tp/phpunit",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^13.0"
+    }
+}
