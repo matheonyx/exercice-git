@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Cafe - Résultat</title>
+</head>
+<body>
+    <h1>Résultat</h1>
+    <div id="affichage-nom"></div>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const nom = urlParams.get('nom');
+        if (nom) {
+            document.getElementById('affichage-nom').innerText = nom.toUpperCase();
+        }
+    </script>
+</body>
+</html>

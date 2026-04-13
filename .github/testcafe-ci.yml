@@ -1,0 +1,21 @@
+name: TestCafe CI
+
+on: [push]
+
+jobs:
+  e2e-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Installer Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Installer TestCafe
+        run: npm install testcafe
+
+      - name: Exécuter les tests en mode headless
+        run: npx testcafe "chromium:headless" test_cafe.js
