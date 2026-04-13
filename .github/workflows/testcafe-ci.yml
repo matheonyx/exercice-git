@@ -1,4 +1,4 @@
-name: TestCafe CI
+name: TestCafe PHP CI
 
 on: [push]
 
@@ -9,6 +9,11 @@ jobs:
       - name: Récupérer le code
         uses: actions/checkout@v4
 
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
       - name: Installer Node.js
         uses: actions/setup-node@v4
         with:
@@ -17,6 +22,11 @@ jobs:
       - name: Installer TestCafe
         run: npm install testcafe
 
-      - name: Exécuter les tests en mode headless
-        # On remplace chromium par chrome et on ajoute --no-sandbox
-        run: npx testcafe "chrome:headless --no-sandbox" test_cafe.js
+      - name: Démarrer le serveur PHP et lancer les tests
+        run: |
+          # On lance le serveur PHP en arrière-plan (&)
+          php -S localhost:8000 & 
+          # On attend 2 secondes que le serveur soit prêt
+          sleep 2
+          # On lance TestCafe
+          npx testcafe "chrome:headless --no-sandbox" test_cafe.js

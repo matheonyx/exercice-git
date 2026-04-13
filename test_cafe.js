@@ -1,12 +1,11 @@
 import { Selector } from 'testcafe';
 
-fixture `TP Test Café`
-    .page `./index.html`;
+fixture `TP Test Café PHP`
+    .page `http://localhost:8000/index.php`; // URL du serveur local
 
-test('Vérification de la mise en majuscule du nom', async t => {
+test('Vérification de la mise en majuscule via PHP', async t => {
     await t
-        .typeText('#nom-input', 'toto')
+        .typeText('#nom-input', 'alexis')
         .click('#btn-enregistrer')
-        // On vérifie que le texte dans la div de destination est bien TOTO
-        .expect(Selector('#affichage-nom').innerText).eql('TOTO');
+        .expect(Selector('#affichage-nom').innerText).eql('ALEXIS');
 });
