@@ -18,4 +18,5 @@ jobs:
         run: npm install testcafe
 
       - name: Exécuter les tests en mode headless
-        run: npx testcafe "chromium:headless" test_cafe.js
+        # On remplace chromium par chrome et on ajoute --no-sandbox
+        run: npx testcafe "chrome:headless --no-sandbox" test_cafe.js
